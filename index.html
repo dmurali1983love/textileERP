@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deva Softwares – Textile ERP Software</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --dark:#002213; --dark2:#133826; --dark3:#003a22;
+  --lime:#ccf22a; --lime-text:#3e4c00; --olive:#546500;
+  --body:#414843; --ink:#161d19; --placeholder:#6b7280; --red:#ba1a1a;
+  --sage1:#e8f0e9; --sage2:#eef5ef; --sage3:#f4fbf4; --sage4:#e3eae3; --mint:#f0ffed;
+  --line:#c1c8c1; --wa:#2ab318; --wa-line:#0e8a3d;
+  --sans:'Hanken Grotesk',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:16px}
+body{margin:0;font-family:var(--sans);color:var(--ink);background:var(--sage3);-webkit-font-smoothing:antialiased;line-height:1.5}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,h4,p,ul{margin:0}
+ul{padding:0;list-style:none}
+.icon{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.wrap{max-width:1280px;margin:0 auto}
+.mono{font-family:var(--mono)}
+
+/* ---------- Header ---------- */
+.topbar{height:9px;background:var(--dark);border-bottom:1px solid rgba(19,56,38,.4)}
+.site-header{background:linear-gradient(180deg,#fff 0%,var(--mint) 100%);position:relative;z-index:20}
+.header-inner{max-width:1280px;margin:0 auto;padding:31px 32px 30px 55px;display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:151px}
+.brand{display:flex;align-items:center;gap:10px}
+.brand .logo{width:90px;height:90px;flex:none;position:relative}
+.brand .logo img{width:100%;height:100%;object-fit:contain}
+.logo-fallback{display:none;width:100%;height:100%;border-radius:14px;background:var(--dark);color:var(--lime);font:700 44px/90px var(--sans);text-align:center}
+.brand-name{font:700 40px/1.1 var(--sans);letter-spacing:3px;color:var(--dark);text-shadow:0 4px 4px rgba(0,0,0,.25);white-space:nowrap}
+.nav{display:flex;align-items:center;gap:4px}
+.nav a{padding:4px 14px;font-weight:600;font-size:14px;line-height:20px;letter-spacing:.14px;color:var(--body);border:1px solid transparent;border-radius:4px;transition:background .15s,color .15s}
+.nav a:hover{color:var(--dark);background:var(--sage1)}
+.nav a.active{background:var(--sage1);border-color:rgba(193,200,193,.4);color:var(--dark);font-weight:700;font-size:16px;line-height:24px;padding:5px 15px}
+.header-right{display:flex;align-items:center;gap:28px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:4px;font-family:var(--sans);font-weight:600;font-size:14px;line-height:20px;letter-spacing:.14px;cursor:pointer;border:1px solid transparent;transition:transform .15s,filter .15s,box-shadow .15s}
+.btn:hover{filter:brightness(1.12);transform:translateY(-1px)}
+.btn-dark{background:var(--dark);color:#fff;padding:8px 20px;filter:drop-shadow(0 1px 1px rgba(0,0,0,.05))}
+.btn-lg{padding:15px 33px;border-color:var(--dark2);box-shadow:0 4px 6px -1px rgba(0,0,0,.1),0 2px 4px -2px rgba(0,0,0,.1)}
+.btn-wa{background:var(--wa);border-color:var(--wa-line);color:#fff;height:50px;padding:14px 20px 14px 14px;box-shadow:0 1px 1px rgba(0,0,0,.05)}
+.btn-wa .icon{font-size:24px}
+.menu-toggle{display:none;background:var(--sage1);border:1px solid rgba(193,200,193,.6);border-radius:4px;width:42px;height:42px;align-items:center;justify-content:center;color:var(--dark);cursor:pointer}
+.menu-toggle .icon{font-size:22px}
+
+/* ---------- Main ---------- */
+main{background:var(--mint);position:relative;overflow:hidden}
+.blob{position:absolute;border-radius:12px;filter:blur(64px);pointer-events:none}
+.blob.b1{width:384px;height:384px;right:-128px;top:-128px;background:rgba(177,212,0,.2)}
+.blob.b2{width:320px;height:320px;left:-112px;top:90px;background:rgba(195,236,209,.4)}
+.hero{position:relative;max-width:1280px;margin:0 auto;padding:32px 32px 0}
+.hero-col{padding:0 32px;text-align:center;display:flex;flex-direction:column;align-items:center}
+.badge{display:inline-flex;align-items:center;gap:4px;padding:5px;background:var(--sage1);border:1px solid rgba(193,200,193,.6);border-radius:12px;filter:drop-shadow(0 1px 1px rgba(0,0,0,.05));font:500 11px/14px var(--mono);letter-spacing:.55px;text-transform:uppercase;color:var(--dark)}
+.badge .dot{width:8px;height:8px;border-radius:12px;background:var(--lime);box-shadow:0 0 0 2px var(--dark2);margin:0 6px 0 6px;flex:none}
+.badge span.t{padding-right:6px}
+h1.headline{margin-top:14px;font:700 40px/48px var(--sans);letter-spacing:-1px;color:var(--dark);max-width:1000px}
+.sub{margin-top:14px;font-size:16px;line-height:24px;color:var(--body);max-width:1120px}
+.ctas{margin-top:20px;display:flex;flex-wrap:wrap;gap:14px;justify-content:center;align-items:center}
+.ctas .btn .icon{font-size:13px}
+
+.trust{margin-top:32px;background:var(--sage2);border:1px solid rgba(193,200,193,.4);border-radius:8px;padding:15px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px;filter:drop-shadow(0 1px 1px rgba(0,0,0,.05))}
+.trust-item{background:#fff;border:1px solid rgba(193,200,193,.3);border-radius:4px;padding:9px;display:flex;align-items:center;justify-content:center;gap:14px}
+.trust-ic{width:40px;height:40px;border-radius:12px;background:var(--sage1);display:flex;align-items:center;justify-content:center;color:var(--dark);flex:none}
+.trust-ic.alt{background:var(--sage4)}
+.trust-ic .icon{font-size:19px}
+.trust-item b{display:block;font:600 18px/24px var(--sans);color:var(--dark)}
+.trust-item small{display:block;font-size:12px;line-height:16px;color:var(--body)}
+
+/* ---------- Features ---------- */
+.features{margin-top:56px;background:var(--sage2);border-top:1px solid rgba(193,200,193,.3);border-bottom:1px solid rgba(193,200,193,.3);padding:33px 32px;position:relative}
+.features-in{max-width:1280px;margin:0 auto}
+.sec-head{max-width:768px;margin:0 auto;text-align:center;display:flex;flex-direction:column;align-items:center}
+.pill{display:inline-block;padding:5px 15px;border-radius:12px;font:600 11px/14px var(--mono);letter-spacing:.55px;text-transform:uppercase}
+.pill.lime{background:var(--lime);border:1px solid rgba(84,101,0,.2);color:var(--lime-text);font-weight:700}
+.pill.sage{background:var(--sage1);border:1px solid rgba(193,200,193,.5);color:var(--dark);letter-spacing:.22px;font-weight:700}
+h2.h2{margin-top:8px;font:700 40px/48px var(--sans);letter-spacing:-.8px;color:var(--dark)}
+.sec-head p{margin-top:8px;font-size:16px;line-height:24px;color:var(--body)}
+.grid6{margin-top:32px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.card{background:#fff;border:1px solid rgba(193,200,193,.5);border-radius:8px;padding:21px;filter:drop-shadow(0 1px 1px rgba(0,0,0,.05));display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s}
+.card:hover{transform:translateY(-3px);box-shadow:0 10px 20px -8px rgba(0,34,19,.18)}
+.card-ic{width:48px;height:48px;border-radius:4px;background:var(--sage1);color:var(--dark);display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+.card-ic .icon{font-size:22px}
+.card h3{font:600 18px/24px var(--sans);color:var(--dark);padding-bottom:4px}
+.card p{font-size:14px;line-height:22.75px;color:var(--body)}
+.card .tag{margin-top:auto;padding-top:22px;display:flex;align-items:center;gap:4px;font:500 11px/14px var(--mono);letter-spacing:.22px;color:var(--olive)}
+.card .tag .icon{font-size:10px}
+
+.why{margin-top:32px;background:var(--dark);border:1px solid var(--dark2);border-radius:8px;padding:33px;position:relative;overflow:hidden;box-shadow:0 20px 25px -5px rgba(0,0,0,.1),0 8px 10px -6px rgba(0,0,0,.1)}
+.why::after{content:"";position:absolute;right:-64px;bottom:-64px;width:320px;height:320px;border-radius:12px;background:rgba(204,242,42,.1);filter:blur(64px);pointer-events:none}
+.why-in{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:48px}
+.why-l{max-width:672px;padding-top:3px;display:flex;flex-direction:column;align-items:flex-start;gap:14px}
+.tagline-s{display:inline-block;background:var(--dark3);border:1px solid rgba(204,242,42,.3);border-radius:2px;padding:3px 9px;font:600 11px/14px var(--mono);letter-spacing:.22px;text-transform:uppercase;color:var(--lime)}
+.why h3{font:700 40px/48px var(--sans);letter-spacing:-.8px;color:#fff}
+.why ul{display:flex;flex-direction:column;gap:8px}
+.why li{display:flex;gap:8px;align-items:flex-start;color:var(--sage4);font-size:16px;line-height:24px}
+.why li .icon{color:var(--lime);font-size:17px;margin-top:4px}
+.cta-box{flex:none;width:508px;max-width:100%;background:var(--dark2);border:1px solid rgba(193,200,193,.3);border-radius:8px;padding:21px;display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;box-shadow:0 10px 15px -3px rgba(0,0,0,.1),0 4px 6px -4px rgba(0,0,0,.1)}
+.cta-box .big{color:var(--lime);font-size:38px}
+.cta-box h4{font:600 18px/24px var(--sans);color:#fff}
+.cta-box p{margin-top:4px;font-size:12px;line-height:16px;color:var(--sage4);max-width:320px;margin-inline:auto}
+.btn-lime{background:var(--lime);color:var(--lime-text);font-weight:700;padding:14px 20px;width:100%;box-shadow:0 4px 6px -1px rgba(0,0,0,.1),0 2px 4px -2px rgba(0,0,0,.1);text-align:center}
+
+/* ---------- Form section ---------- */
+.lead{background:var(--sage3);padding:32px 64px}
+.lead-in{max-width:1152px;margin:0 auto}
+.lead .sec-head{max-width:672px;gap:3px}
+.lead .sec-head p{margin-top:0;padding-top:1px}
+.bento{margin-top:32px;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:32px;align-items:start}
+.bento-l{grid-column:1/span 5;display:flex;flex-direction:column;gap:14px}
+.bento-r{grid-column:6/span 7}
+.panel{background:var(--sage2);border:1px solid rgba(193,200,193,.4);border-radius:8px;padding:21px;filter:drop-shadow(0 1px 1px rgba(0,0,0,.05));display:flex;flex-direction:column;gap:14px}
+.panel h3{display:flex;align-items:center;gap:8px;font:600 18px/24px var(--sans);color:var(--dark)}
+.panel h3 .icon{font-size:18px}
+.panel p{font-size:14px;line-height:20px;color:var(--body)}
+.panel ul{display:flex;flex-direction:column;gap:8px}
+.panel li{display:flex;gap:8px;align-items:flex-start;font-size:12px;line-height:16px;color:var(--ink)}
+.panel li .icon{color:var(--olive);font-size:12px;margin-top:2px;stroke-width:2.6}
+.phone-card{background:var(--sage1);border-color:rgba(193,200,193,.5);gap:8px}
+.phone-card h4{font:700 18px/24px var(--sans);color:var(--dark)}
+.phone-card .lead-s{font-size:12px;line-height:16px;color:var(--body)}
+.phone-list{display:flex;flex-direction:column;gap:4px}
+.phone-link{background:#fff;border:1px solid rgba(193,200,193,.3);border-radius:2px;padding:9px;display:flex;align-items:center;gap:8px;transition:border-color .15s,background .15s}
+.phone-link:hover{border-color:var(--olive);background:#fdfffb}
+.phone-link .icon{font-size:18px;color:var(--olive)}
+.phone-link b{font:600 14px/20px var(--mono);letter-spacing:-.13px;color:var(--dark);white-space:nowrap}
+.phone-link em{margin-left:auto;font:400 11px/14px var(--mono);letter-spacing:.22px;color:var(--body);font-style:normal;white-space:nowrap}
+.photo{background:#fff;border:1px solid rgba(193,200,193,.4);border-radius:8px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,.05);padding:1px}
+.photo .img{height:192px;background:linear-gradient(135deg,#c3ecd1,#e8f0e9);overflow:hidden}
+.photo img{width:100%;height:130.36%;margin-top:-15.18%;object-fit:cover}
+.photo figcaption{padding:8px;text-align:center;font-size:12px;line-height:16px;color:var(--body);background:#fff}
+.photo{margin:0}
+
+.form-card{background:#fff;border:1px solid rgba(193,200,193,.4);border-radius:8px;padding:33px;display:flex;flex-direction:column;gap:20px;box-shadow:0 10px 15px -3px rgba(0,0,0,.1),0 4px 6px -4px rgba(0,0,0,.1)}
+.form-card h3{font:600 28px/36px var(--sans);letter-spacing:-.42px;color:var(--dark)}
+.form-card .fs{font-size:14px;line-height:20px;color:var(--body)}
+form{display:flex;flex-direction:column;gap:14px}
+.field{display:flex;flex-direction:column;gap:4px;min-width:0}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+label{font:500 13px/18px var(--mono);letter-spacing:-.13px;color:var(--ink)}
+label .req{color:var(--red)}
+.input,select.input,textarea.input{width:100%;background:var(--sage3);border:1px solid var(--line);border-radius:2px;padding:10px 15px;font:400 14px/18px var(--sans);color:var(--ink);outline:none;transition:border-color .15s,box-shadow .15s}
+.input::placeholder{color:var(--placeholder)}
+.input:focus{border-color:var(--dark);box-shadow:0 0 0 3px rgba(204,242,42,.45)}
+.input:user-invalid{border-color:var(--red)}
+textarea.input{resize:vertical;min-height:78px;line-height:20px}
+.pre{position:relative}
+.pre .cc{position:absolute;left:12px;top:50%;transform:translateY(-50%);font:400 12px/16px var(--mono);color:var(--body);pointer-events:none}
+.pre .input{padding-left:49px;font-family:var(--mono)}
+.sel{position:relative}
+select.input{appearance:none;-webkit-appearance:none;padding-right:44px;padding-top:9px;padding-bottom:9px;line-height:20px;cursor:pointer}
+select.input:invalid{color:var(--ink)}
+.sel .icon{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:20px;color:var(--body);pointer-events:none}
+.submit{width:100%;background:var(--dark);color:#fff;padding:14px;margin-top:3px;box-shadow:0 4px 6px -1px rgba(0,0,0,.1),0 2px 4px -2px rgba(0,0,0,.1)}
+.submit[disabled]{opacity:.7;cursor:progress;transform:none;filter:none}
+.submit .icon{font-size:15px}
+.privacy{text-align:center;font-size:12px;line-height:16px;color:var(--body);padding-top:4px}
+.status{display:none;border-radius:4px;padding:12px 14px;font-size:14px;line-height:20px;align-items:flex-start;gap:10px}
+.status.show{display:flex}
+.status.ok{background:#e9f8d0;border:1px solid #b6d96b;color:var(--lime-text)}
+.status.err{background:#fde8e8;border:1px solid #f1b4b4;color:#8a1313}
+.status .icon{font-size:18px;margin-top:1px}
+
+.closing{margin-top:32px;background:var(--sage1);border:1px solid rgba(193,200,193,.4);border-radius:8px;padding:21px 33px;display:flex;align-items:center;justify-content:space-between;gap:20px;filter:drop-shadow(0 1px 1px rgba(0,0,0,.05))}
+.closing-l{display:flex;align-items:center;gap:14px}
+.closing .ic{width:48px;height:48px;border-radius:12px;background:var(--lime);display:flex;align-items:center;justify-content:center;color:var(--lime-text);flex:none}
+.closing .ic .icon{font-size:22px}
+.closing h3{font:600 22px/28px var(--sans);letter-spacing:-.22px;color:var(--dark)}
+.closing p{font-size:12px;line-height:16px;color:var(--body)}
+.closing .btn{white-space:nowrap}
+.closing .btn .icon{font-size:13.5px}
+
+/* ---------- Footers ---------- */
+.footer-a{background:#fff;border-top:1px solid rgba(193,200,193,.3);padding:33px 0 20px}
+.footer-a-in{max-width:1280px;margin:0 auto;padding:0 32px}
+.fgrid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:32px}
+.f-brand{grid-column:1/span 5;display:flex;flex-direction:column;gap:14px}
+.f-brand .b{display:flex;align-items:center;gap:8px}
+.f-brand .b .lg{width:40px;height:40px;border-radius:6px;overflow:hidden;flex:none}
+.f-brand .b .lg img{width:100%;height:100%;object-fit:contain}
+.f-brand .b .lg .logo-fallback{font:700 20px/40px var(--sans);border-radius:6px}
+.f-brand .b span{font:700 28px/36px var(--sans);letter-spacing:-.7px;color:var(--dark);text-shadow:0 4px 4px rgba(0,0,0,.25)}
+.f-brand .kick{font:600 13px/18px var(--mono);letter-spacing:.65px;text-transform:uppercase;color:var(--olive)}
+.f-brand p{font-size:14px;line-height:22.75px;color:var(--body)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;padding-top:4px}
+.chip{background:var(--sage1);border:1px solid rgba(193,200,193,.4);border-radius:2px;padding:5px 9px;font:500 11px/14px var(--mono);letter-spacing:.22px;color:var(--dark)}
+.f-col h4{font:600 18px/24px var(--sans);color:var(--dark);margin-bottom:8px}
+.f-col ul{display:flex;flex-direction:column;gap:4px}
+.f-col li{font-size:14px;line-height:20px;color:var(--body)}
+.f-col li a{display:flex;align-items:center;gap:4px;transition:color .15s}
+.f-col li a:hover{color:var(--dark)}
+.f-col li .icon{font-size:6px;stroke-width:3.4}
+.c-links{grid-column:6/span 2}
+.c-sol{grid-column:8/span 2}
+.c-contact{grid-column:10/span 3}
+.c-contact ul{gap:8px}
+.c-contact li{display:flex;gap:8px;align-items:flex-start;font-size:12px;line-height:16px}
+.c-contact li .icon{font-size:15px;color:var(--olive);margin-top:1px}
+.c-contact b{display:block;font-weight:600;color:var(--ink)}
+.c-contact span.v{color:var(--body)}
+.c-contact .mono-v{font-family:var(--mono);color:var(--dark)}
+.c-contact .web{color:var(--olive);font-weight:500}
+.bottom{margin-top:32px;padding-top:15px;border-top:1px solid rgba(193,200,193,.3);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.bottom .l{font-size:12px;line-height:16px;color:var(--body)}
+.bottom .r{font:600 13px/18px var(--mono);letter-spacing:-.13px;color:var(--dark)}
+
+.footer-b{background:var(--sage2);border-top:1px solid rgba(193,200,193,.3);padding:33px 0 32px}
+.footer-b-in{max-width:1280px;margin:0 auto;padding:0 32px}
+.fgrid-b{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1.4fr) minmax(0,1.1fr) minmax(0,.75fr);gap:32px;padding-bottom:32px}
+.fb-brand{display:flex;flex-direction:column;gap:14px}
+.fb-brand .b{display:flex;align-items:center;gap:8px}
+.fb-brand .b .lg{width:40px;height:40px;overflow:hidden;flex:none}
+.fb-brand .b .lg img{width:100%;height:100%;object-fit:contain}
+.fb-brand .b .lg .logo-fallback{font:700 20px/40px var(--sans);border-radius:6px}
+.fb-brand .b span{font:700 24px/24px var(--sans);color:var(--dark);text-shadow:0 4px 4px rgba(0,0,0,.25)}
+.fb-brand p{font-size:14px;line-height:20px;color:var(--body);max-width:448px}
+.desk b{display:block;font:600 11px/14px var(--mono);letter-spacing:.22px;color:var(--dark)}
+.desk .nums{margin-top:4px;display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+.desk .nums a{font:500 13px/18px var(--mono);letter-spacing:.22px;color:var(--olive)}
+.desk .nums a:hover{text-decoration:underline}
+.desk .nums i{font:500 11px/14px var(--mono);color:var(--body);font-style:normal}
+.footer-b .bottom{margin-top:0;padding-top:21px}
+
+/* ---------- Responsive ---------- */
+@media (max-width:1180px){
+  .brand-name{font-size:32px;letter-spacing:2px}
+  .brand .logo{width:72px;height:72px}
+  .logo-fallback{line-height:72px;font-size:36px}
+  .header-inner{padding-left:32px;min-height:120px}
+  .header-right{gap:16px}
+  .nav a{padding:4px 10px}
+  .why-in{flex-direction:column;align-items:stretch;gap:32px}
+  .cta-box{width:100%}
+  .why-l{max-width:none}
+}
+@media (max-width:1020px){
+  .menu-toggle{display:inline-flex}
+  .header-right{position:static}
+  .nav{display:none;position:absolute;left:16px;right:16px;top:100%;background:#fff;border:1px solid rgba(193,200,193,.5);border-radius:8px;box-shadow:0 12px 24px -8px rgba(0,34,19,.2);padding:8px;flex-direction:column;align-items:stretch;gap:2px;z-index:30}
+  .nav.open{display:flex}
+  .nav a,.nav a.active{padding:10px 14px;font-size:15px;line-height:22px}
+  .header-right .btn-dark{display:none}
+  .header-inner{padding:20px 20px;min-height:0}
+  .grid6{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .lead{padding:32px 24px}
+  .bento{grid-template-columns:1fr}
+  .bento-l,.bento-r{grid-column:auto}
+  .fgrid{grid-template-columns:repeat(6,minmax(0,1fr))}
+  .f-brand{grid-column:1/-1}
+  .c-links{grid-column:1/span 2}
+  .c-sol{grid-column:3/span 2}
+  .c-contact{grid-column:5/span 2}
+  .fgrid-b{grid-template-columns:1fr 1fr}
+}
+@media (max-width:760px){
+  .brand .logo{width:56px;height:56px}
+  .logo-fallback{line-height:56px;font-size:28px}
+  .brand-name{font-size:24px;letter-spacing:1px}
+  h1.headline{font-size:30px;line-height:38px;letter-spacing:-.6px}
+  h2.h2,.why h3{font-size:30px;line-height:38px}
+  .hero{padding:24px 16px 0}
+  .hero-col{padding:0}
+  .badge{text-align:left}
+  .trust{grid-template-columns:1fr}
+  .features{padding:28px 16px;margin-top:40px}
+  .grid6{grid-template-columns:1fr}
+  .why{padding:24px 18px}
+  .row2{grid-template-columns:1fr}
+  .form-card{padding:22px 18px}
+  .form-card h3{font-size:24px;line-height:30px}
+  .closing{flex-direction:column;align-items:flex-start;padding:21px 18px}
+  .closing h3{font-size:19px;line-height:26px}
+  .closing .btn{width:100%}
+  .lead{padding:28px 16px}
+  .fgrid{grid-template-columns:1fr 1fr}
+  .c-links{grid-column:1/span 1}
+  .c-sol{grid-column:2/span 1}
+  .c-contact{grid-column:1/-1}
+  .fgrid-b{grid-template-columns:1fr}
+  .bottom{flex-direction:column;align-items:flex-start}
+  .ctas .btn{width:100%;max-width:340px}
+  .cta-box .btn-lime{font-size:13px}
+  .phone-link{flex-wrap:wrap}
+  .phone-link em{margin-left:34px;width:100%}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn,.card{transition:none}}
+</style>
+</head>
+<body id="home">
+
+<!-- SVG icon sprite -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+    <symbol id="i-check-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></symbol>
+    <symbol id="i-chev-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+    <symbol id="i-chev-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+    <symbol id="i-award" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+    <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 2 10 5-10 5L2 7z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></symbol>
+    <symbol id="i-receipt" viewBox="0 0 24 24"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 17.5v-11"/></symbol>
+    <symbol id="i-factory" viewBox="0 0 24 24"><path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7 5V8l-7 5V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M17 18h1M12 18h1M7 18h1"/></symbol>
+    <symbol id="i-repeat" viewBox="0 0 24 24"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></symbol>
+    <symbol id="i-drop" viewBox="0 0 24 24"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/></symbol>
+    <symbol id="i-barcode" viewBox="0 0 24 24"><path d="M3 5v14M7 5v14M11 5v14M14 5v14M18 5v14M21 5v14"/></symbol>
+    <symbol id="i-headset" viewBox="0 0 24 24"><path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-bulb" viewBox="0 0 24 24"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6M10 22h4"/></symbol>
+    <symbol id="i-trend" viewBox="0 0 24 24"><path d="M22 7 13.5 15.5 8.5 10.5 2 17"/><path d="M16 7h6v6"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+    <symbol id="i-wa" viewBox="0 0 24 24"><path d="M3 21l1.65-4.9A8.5 8.5 0 1 1 8 19.5L3 21z"/><path d="M9 9.5c.5 2 2.5 4 5 5l1.2-1.2-1.8-1-.8.7c-.8-.3-1.7-1.2-2-2l.7-.8-1-1.8L9 9.5z"/></symbol>
+  </defs>
+</svg>
+
+<div class="topbar"></div>
+
+<!-- ============ HEADER ============ -->
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="#home" aria-label="Deva Softwares home">
+      <div class="logo">
+        <img src="https://www.figma.com/api/mcp/asset/9cc935bc-0aa2-43ee-9b03-486ee835b37f.png" alt="Deva Softwares logo" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+        <div class="logo-fallback">D</div>
+      </div>
+      <span class="brand-name">Deva Softwares</span>
+    </a>
+    <div class="header-right">
+      <nav class="nav" id="nav" aria-label="Primary">
+        <a href="#home" class="active">Home</a>
+        <a href="#products">Products</a>
+        <a href="#solutions">Solutions</a>
+        <a href="#why-us">Why Us</a>
+        <a href="#demo">Demo</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <a href="#demo" class="btn btn-dark">Book Free Demo</a>
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="Toggle menu" aria-expanded="false"><svg class="icon"><use href="#i-menu"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+
+  <!-- ============ 1. HERO ============ -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-col">
+      <div class="badge"><span class="dot"></span><span class="t">SMART SOFTWARE. SIMPLE BUSINESS MANAGEMENT.</span></div>
+      <h1 class="headline" id="hero-title">Manage Your Textile Business Smarter with Our Textile ERP Software</h1>
+      <p class="sub">Simplify your business operations with a powerful and easy-to-use Textile ERP solution. Manage accounts, inventory, purchases, sales and day-to-day business activities – all in one place. Designed for textile businesses, our software helps you save time, reduce manual work and make better business decisions.</p>
+      <div class="ctas">
+        <a href="#demo" class="btn btn-dark btn-lg">Request a Free Demo <svg class="icon"><use href="#i-arrow"/></svg></a>
+        <a href="https://web.whatsapp.com/send?phone=919345562087&text=Hello%20%21" class="btn btn-wa" target="_blank" rel="noopener"><svg class="icon"><use href="#i-wa"/></svg>Give the Message</a>
+      </div>
+    </div>
+
+    <div class="trust">
+      <div class="trust-item">
+        <div class="trust-ic"><svg class="icon"><use href="#i-award"/></svg></div>
+        <div><b>15+ Years</b><small>of Industry Experience</small></div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-ic"><svg class="icon"><use href="#i-users"/></svg></div>
+        <div><b>400+ Customers</b><small>Across Tamil Nadu &amp; South India</small></div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-ic alt"><svg class="icon"><use href="#i-layers"/></svg></div>
+        <div><b>Textile-Focused</b><small>Specialized Software Solutions</small></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 2. PRODUCT & FEATURES ============ -->
+  <section class="features" id="products">
+    <div class="features-in">
+      <div class="sec-head">
+        <span class="pill lime">ENTERPRISE TEXTILE CAPABILITIES</span>
+        <h2 class="h2">Everything Your Textile Business Needs. All in One Software.</h2>
+        <p>Running a textile business involves managing multiple activities every day. From stock management to financial accounts, every operation needs accuracy and proper tracking. Deva Softwares brings all these activities together with an integrated Textile ERP solution that makes business management easier, faster and more organized.</p>
+      </div>
+
+      <div class="grid6" id="solutions">
+        <article class="card">
+          <div class="card-ic"><svg class="icon"><use href="#i-receipt"/></svg></div>
+          <h3>Billing &amp; Accounts Management</h3>
+          <p>Keep your financial transactions organized. Manage customer accounts, supplier accounts, receipts, payments, Bill wise outstanding balances and financial reports with ease.</p>
+          <div class="tag">GST-ready Ledgers &amp; Daybooks <svg class="icon"><use href="#i-chev-right"/></svg></div>
+        </article>
+        <article class="card">
+          <div class="card-ic"><svg class="icon"><use href="#i-factory"/></svg></div>
+          <h3>Weaving / Production Management</h3>
+          <p>Get better control over your stock and Production. Track Weavers Inventory movements and available Warp, Weft with accurate and up-to-date information.</p>
+          <div class="tag">Yarn, Warp &amp; Box Level Tracking <svg class="icon"><use href="#i-chev-right"/></svg></div>
+        </article>
+        <article class="card">
+          <div class="card-ic"><svg class="icon"><use href="#i-repeat"/></svg></div>
+          <h3>Cotton / Polyester / Jari Warping System</h3>
+          <p>Manage your Warping / Sizing / Twisting activities efficiently. Maintain transaction details, monitor outstanding Stock reduce manual paperwork.</p>
+          <div class="tag">Easy Warping &amp; Wages System <svg class="icon"><use href="#i-chev-right"/></svg></div>
+        </article>
+        <article class="card">
+          <div class="card-ic"><svg class="icon"><use href="#i-drop"/></svg></div>
+          <h3>Dyeing → Cotton, PureSilk, Tana Warp &amp; Yarns</h3>
+          <p>Designed with an understanding of textile Dyeing requirements. Manage your Dyeing operations with features suited to textile traders and Manufacturers.</p>
+          <div class="tag">All Kind of Yarn Dyeing Management <svg class="icon"><use href="#i-chev-right"/></svg></div>
+        </article>
+        <article class="card">
+          <div class="card-ic"><svg class="icon"><use href="#i-barcode"/></svg></div>
+          <h3>BarCode and Retail Sales</h3>
+          <p>Maintenance of Goods with Unique BarCode / QR Code system to get important business information whenever you need it. Make informed decisions with useful reports and clear business data.</p>
+          <div class="tag">Profitability &amp; Dead Stock Audit <svg class="icon"><use href="#i-chev-right"/></svg></div>
+        </article>
+        <article class="card">
+          <div class="card-ic"><svg class="icon"><use href="#i-headset"/></svg></div>
+          <h3>Reliable Support &amp; Assistance</h3>
+          <p>We believe software is more than just an application. We provide implementation guidance, training and ongoing technical support to help your business run smoothly.</p>
+          <div class="tag">Direct Call &amp; Outstanding Support <svg class="icon"><use href="#i-chev-right"/></svg></div>
+        </article>
+      </div>
+
+      <!-- Why Choose banner -->
+      <div class="why" id="why-us">
+        <div class="why-in">
+          <div class="why-l">
+            <span class="tagline-s">PROVEN TRACK RECORD</span>
+            <h3>Why Choose Deva Softwares?</h3>
+            <ul>
+              <li><svg class="icon"><use href="#i-check-circle"/></svg>More than 15 years of software and textile industry experience.</li>
+              <li><svg class="icon"><use href="#i-check-circle"/></svg>Trusted by 400+ customers across Tamil Nadu.</li>
+              <li><svg class="icon"><use href="#i-check-circle"/></svg>Practical solutions developed around real business requirements.</li>
+              <li><svg class="icon"><use href="#i-check-circle"/></svg>Easy-to-understand software and user-friendly operations.</li>
+              <li><svg class="icon"><use href="#i-check-circle"/></svg>Dedicated implementation, training and technical support.</li>
+            </ul>
+          </div>
+          <div class="cta-box">
+            <svg class="icon big"><use href="#i-shield"/></svg>
+            <div>
+              <h4>Ready to transform your textile workflow?</h4>
+              <p>See firsthand how our ERP saves hours of ledger reconciliation daily.</p>
+            </div>
+            <a href="#demo" class="btn btn-lime">Discover How Our Software Works – Book Your Free Demo Today!</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 3. LEAD DEMO FORM ============ -->
+  <section class="lead" id="demo">
+    <div class="lead-in">
+      <div class="sec-head">
+        <span class="pill sage">DIRECT Customer CONSULTATION</span>
+        <h2 class="h2">Let’s Make Your Textile Business Management Easier!</h2>
+        <p>Looking for a reliable software solution for your textile business? Tell us a little about your business. Our team will get in touch with you to understand your requirements and demonstrate how Deva Softwares - Textile ERP can help.</p>
+      </div>
+
+      <div class="bento">
+        <div class="bento-l">
+          <div class="panel">
+            <h3><svg class="icon"><use href="#i-bulb"/></svg>Why Request a Personal Demo?</h3>
+            <p>Every textile unit has distinctive yarn procurement schedules, beam conversion formulas, and customer billing models. During your live 1-on-1 walkthrough:</p>
+            <ul>
+              <li><svg class="icon"><use href="#i-check"/></svg>We evaluate your current paper registers or Excel sheets.</li>
+              <li><svg class="icon"><use href="#i-check"/></svg>We simulate live yarn lot dispatch &amp; billing workflows.</li>
+              <li><svg class="icon"><use href="#i-check"/></svg>Complete roadmap for frictionless floor staff training.</li>
+            </ul>
+          </div>
+
+          <div class="panel phone-card">
+            <h4>Speak Directly with Founder</h4>
+            <p class="lead-s">Prefer a direct conversation? Give us a call directly:</p>
+            <div class="phone-list">
+              <a class="phone-link" href="tel:+919345562087"><svg class="icon"><use href="#i-phone"/></svg><b>+91 93455 62087</b><em>Direct Sales</em></a>
+              <a class="phone-link" href="tel:+919791245087"><svg class="icon"><use href="#i-headset"/></svg><b>+91 97912 45087</b><em>Customer Success</em></a>
+            </div>
+          </div>
+
+          <figure class="photo">
+            <div class="img"><img src="https://www.figma.com/api/mcp/asset/31e66701-9658-492f-a405-1485fa49ae3b.png" alt="Textile factory facility" loading="lazy" onerror="this.style.display='none'"></div>
+            <figcaption>Serving spinning, weaving &amp; wholesale hubs across Tamil Nadu</figcaption>
+          </figure>
+        </div>
+
+        <div class="bento-r">
+          <div class="form-card">
+            <div>
+              <h3>Request a Free Software Demo</h3>
+              <p class="fs">Fill in the details below and we will prepare a customized demonstration.</p>
+            </div>
+
+            <form id="demoForm">
+              <div class="field">
+                <label for="f-name">Your Name <span class="req">*</span></label>
+                <input class="input" id="f-name" name="name" type="text" placeholder="e.g. Murali" autocomplete="name" required>
+              </div>
+              <div class="field">
+                <label for="f-company">Company / Business Name <span class="req">*</span></label>
+                <input class="input" id="f-company" name="company" type="text" placeholder="e.g. Devarajan Textiles" autocomplete="organization" required>
+              </div>
+              <div class="row2">
+                <div class="field">
+                  <label for="f-mobile">Mobile Number <span class="req">*</span></label>
+                  <div class="pre">
+                    <span class="cc">+91</span>
+                    <input class="input" id="f-mobile" name="mobile" type="tel" inputmode="numeric" placeholder="98765 43210" autocomplete="tel-national" pattern="[0-9 ]{10,12}" maxlength="12" title="Enter a 10-digit mobile number" required>
+                  </div>
+                </div>
+                <div class="field">
+                  <label for="f-email">Email Address (Optional)</label>
+                  <input class="input" id="f-email" name="email" type="email" placeholder="e.g. contact@yourbusiness.com" autocomplete="email">
+                </div>
+              </div>
+              <div class="field">
+                <label for="f-type">Your Business Type <span class="req">*</span></label>
+                <div class="sel">
+                  <select class="input" id="f-type" name="business_type" required>
+                    <option value="" selected disabled>Select your primary textile segment...</option>
+                    <option>Weaving / Production Unit</option>
+                    <option>Warping / Sizing / Twisting</option>
+                    <option>Yarn Dyeing</option>
+                    <option>Yarn / Fabric Trader</option>
+                    <option>Wholesale / Retail Textile Shop</option>
+                    <option>Garment Manufacturer</option>
+                    <option>Other</option>
+                  </select>
+                  <svg class="icon"><use href="#i-chev-down"/></svg>
+                </div>
+              </div>
+              <div class="field">
+                <label for="f-req">Your Requirements</label>
+                <textarea class="input" id="f-req" name="requirements" rows="3" placeholder="Tell us what challenges you’d like to solve (e.g. tracking yarn lot loss, speed up party billing, multi-godown stock sync)..."></textarea>
+              </div>
+
+              <div class="status ok" id="msgOk" role="status" aria-live="polite"><svg class="icon"><use href="#i-check-circle"/></svg><span>Thank you! Your request has been received. Our team will contact you shortly to arrange your free demo.</span></div>
+              <div class="status err" id="msgErr" role="alert"><svg class="icon"><use href="#i-alert"/></svg><span>Sorry, something went wrong while sending your request. Please try again or call us on +91 93455 62087.</span></div>
+
+              <button class="btn submit" id="submitBtn" type="submit"><span id="submitLabel">Request My Free Demo</span><svg class="icon"><use href="#i-arrow"/></svg></button>
+              <p class="privacy">Your information is safe with us. We will use your details only to contact you regarding our software solutions.</p>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="closing">
+        <div class="closing-l">
+          <div class="ic"><svg class="icon"><use href="#i-trend"/></svg></div>
+          <div>
+            <h3>Let’s take the first step towards smarter business management!</h3>
+            <p>Over 400 textile entrepreneurs in South India already run on DevaERP.</p>
+          </div>
+        </div>
+        <a class="btn btn-dark" href="tel:+919345562087"><svg class="icon"><use href="#i-phone"/></svg>Call 93455 62087 Now</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 4. FOOTER SECTION ============ -->
+  <section class="footer-a" id="contact">
+    <div class="footer-a-in">
+      <div class="fgrid">
+        <div class="f-brand">
+          <div class="b">
+            <div class="lg"><img src="https://www.figma.com/api/mcp/asset/9cc935bc-0aa2-43ee-9b03-486ee835b37f.png" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><div class="logo-fallback">D</div></div>
+            <span>Deva Softwares</span>
+          </div>
+          <div class="kick">YOUR TRUSTED PARTNER IN TEXTILE BUSINESS SOFTWARE SOLUTIONS</div>
+          <p>We develop practical and reliable software solutions that help textile businesses manage their daily operations efficiently. With over 15 years of industry experience and 400+ customers, we are committed to making business management simpler through technology.</p>
+          <div class="chips">
+            <span class="chip">Made for Textile Manufacturers / Traders</span>
+            <span class="chip">GST Enabled</span>
+            <span class="chip">Fast Local Support</span>
+          </div>
+        </div>
+
+        <div class="f-col c-links">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#home"><svg class="icon"><use href="#i-chev-right"/></svg>Home</a></li>
+            <li><a href="#products"><svg class="icon"><use href="#i-chev-right"/></svg>Products</a></li>
+            <li><a href="#why-us"><svg class="icon"><use href="#i-chev-right"/></svg>About Us</a></li>
+            <li><a href="#home"><svg class="icon"><use href="#i-chev-right"/></svg>Gallery</a></li>
+            <li><a href="#contact"><svg class="icon"><use href="#i-chev-right"/></svg>Contact Us</a></li>
+          </ul>
+        </div>
+
+        <div class="f-col c-sol">
+          <h4>Our Solutions</h4>
+          <ul>
+            <li>Textile ERP Software</li>
+            <li>Accounts Management</li>
+            <li>Inventory Management</li>
+            <li>Purchase &amp; Sales Management</li>
+            <li>Business Reports</li>
+          </ul>
+        </div>
+
+        <div class="f-col c-contact">
+          <h4>Contact Us</h4>
+          <ul>
+            <li><svg class="icon"><use href="#i-pin"/></svg><div><b>Deva Softwares</b><span class="v">9/342.1, Sembayi Valavu, Vembadithalam - 637504, Salem, Tamil Nadu, India.</span></div></li>
+            <li><svg class="icon"><use href="#i-phone"/></svg><div><b>Phone / Support:</b><span class="mono-v">9345562087</span><span class="v">, </span><span class="mono-v">9791245087</span></div></li>
+            <li><svg class="icon"><use href="#i-mail"/></svg><div><b>Email Address:</b><a class="mono-v" style="font-family:var(--sans)" href="mailto:dmurali1983love@gmail.com">dmurali1983love@gmail.com</a></div></li>
+            <li><svg class="icon"><use href="#i-globe"/></svg><div><b>Official Website:</b><span class="web">www.devasoftwares.com</span></div></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="bottom">
+        <div class="l">© 2026 Deva Softwares. All Rights Reserved.</div>
+        <div class="r">Simplifying Textile Business Through Technology.</div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer-b">
+  <div class="footer-b-in">
+    <div class="fgrid-b">
+      <div class="fb-brand">
+        <div class="b">
+          <div class="lg"><img src="https://www.figma.com/api/mcp/asset/9cc935bc-0aa2-43ee-9b03-486ee835b37f.png" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><div class="logo-fallback">D</div></div>
+          <span>Deva Softwares</span>
+        </div>
+        <p>Precision engineered enterprise resource planning and smart automation software crafted specifically for weaving, warping, dyeing, and garment manufacturing companies.</p>
+        <div class="desk">
+          <b>Direct Desk:</b>
+          <div class="nums"><a href="tel:+919345562087">+91 93455 62087</a><i>|</i><a href="tel:+919791245087">+91 97912 45087</a></div>
+        </div>
+      </div>
+
+      <div class="f-col">
+        <h4>Products</h4>
+        <ul>
+          <li>Weaving / Production Management System</li>
+          <li>Cotton/Polyester/Jari Warping System</li>
+          <li>Dyeing → Cotton. Pure Silk, Tana warp and Yarns</li>
+          <li>Billing, Accounts with Inventory System</li>
+          <li>BarCode and Retail Sales</li>
+        </ul>
+      </div>
+
+      <div class="f-col">
+        <h4>Solutions</h4>
+        <ul>
+          <li>Manage Production with Inventory</li>
+          <li>Tax Invoice and Accounts</li>
+          <li>Material Management &amp; Stock</li>
+          <li>Accounts &amp; E-Invoice, E-Way Bill</li>
+          <li>Easy Reports with PDF and Image Export</li>
+        </ul>
+      </div>
+
+      <div class="f-col">
+        <h4>Quick Access</h4>
+        <ul>
+          <li><a href="#why-us">Why Deva Softwares</a></li>
+          <li><a href="#demo">Book Demo</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="bottom">
+      <div class="l">© 2025 Deva Softwares. Industrial Textile ERP Solutions. All rights reserved.</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ---------- Mobile menu ---------- */
+(function () {
+  var toggle = document.getElementById('menuToggle');
+  var nav = document.getElementById('nav');
+  if (!toggle || !nav) return;
+  toggle.addEventListener('click', function () {
+    var open = nav.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  nav.addEventListener('click', function (e) {
+    if (e.target.tagName === 'A') { nav.classList.remove('open'); toggle.setAttribute('aria-expanded', 'false'); }
+  });
+})();
+
+/* ---------- Demo form -> Google Sheets (Apps Script) ---------- */
+var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzzos75md1wC-wP9sBvOnHO5ohfkNZV9uTNjFNfeQWX2sLXYvpsZ0r4DZAu_TjpL7lW/exec";
+
+var form = document.getElementById('demoForm');
+var msgOk = document.getElementById('msgOk');
+var msgErr = document.getElementById('msgErr');
+var submitBtn = document.getElementById('submitBtn');
+var submitLabel = document.getElementById('submitLabel');
+
+function setBusy(busy) {
+  submitBtn.disabled = busy;
+  submitLabel.textContent = busy ? 'Sending…' : 'Request My Free Demo';
+}
+
+function showSuccess() {
+  msgErr.classList.remove('show');
+  msgOk.classList.add('show');
+  form.reset();
+  setBusy(false);
+  msgOk.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function showError() {
+  msgOk.classList.remove('show');
+  msgErr.classList.add('show');
+  setBusy(false);
+  msgErr.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+
+
+form.addEventListener('submit', function (e) {
+  e.preventDefault();
+  msgOk.classList.remove('show');
+  msgErr.classList.remove('show');
+
+  var name = form.elements['name'].value.trim();
+  var company = form.elements['company'].value.trim();
+  var mobile = "" + form.elements['mobile'].value.trim();
+  var email = form.elements['email'].value.trim();
+  var business_type = form.elements['business_type'].value;
+  var requirements = form.elements['requirements'].value.trim();
+
+  var url = SCRIPT_URL + "?" + new URLSearchParams({
+    name: name,
+    company: company,
+    mobile: mobile,
+    email: email,
+    business_type: business_type,
+    requirements: requirements
+  });
+
+  setBusy(true);
+  fetch(url, { method: "GET", mode: "no-cors" })
+    .then(() => showSuccess())
+    .catch(() => showError());
+});
+</script>
+</body>
+</html>
